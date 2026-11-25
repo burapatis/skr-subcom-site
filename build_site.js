@@ -12,15 +12,17 @@ const NAV = [
   { href: "contact.html", label: "ติดต่อ", key: "contact" },
 ];
 
-const BRAND_MARK = `<svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true" role="img">
+function brandMark(gid = "brand-bg") {
+  return `<svg class="brand__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true" role="img">
   <rect x="2" y="2" width="44" height="44" rx="12" fill="#16233F"/>
-  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#bg)" fill-opacity="0.35"/>
+  <rect x="2" y="2" width="44" height="44" rx="12" fill="url(#${gid})" fill-opacity="0.35"/>
   <path d="M24 15c-2.4-1.5-5.2-2.1-8-1.8v14.9c2.8-.3 5.6.3 8 1.8 2.4-1.5 5.2-2.1 8-1.8V13.2c-2.8-.3-5.6.3-8 1.8Z" stroke="#C9A867" stroke-width="1.8" stroke-linejoin="round"/>
   <path d="M24 15v14.9" stroke="#C9A867" stroke-width="1.8"/>
   <circle cx="16" cy="35" r="1.7" fill="#C9A867"/><circle cx="21.3" cy="35" r="1.7" fill="#C9A867"/>
   <circle cx="26.6" cy="35" r="1.7" fill="#C9A867"/><circle cx="32" cy="35" r="1.7" fill="#C9A867"/>
-  <defs><linearGradient id="bg" x1="4" y1="4" x2="44" y2="44"><stop stop-color="#35589E"/><stop offset="1" stop-color="#16233F"/></linearGradient></defs>
+  <defs><linearGradient id="${gid}" x1="4" y1="4" x2="44" y2="44"><stop stop-color="#35589E"/><stop offset="1" stop-color="#16233F"/></linearGradient></defs>
 </svg>`;
+}
 
 const FAVICON = "data:image/svg+xml," + encodeURIComponent(
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#16233F"/><path d="M24 15c-2.4-1.5-5.2-2.1-8-1.8v14.9c2.8-.3 5.6.3 8 1.8 2.4-1.5 5.2-2.1 8-1.8V13.2c-2.8-.3-5.6.3-8 1.8Z" stroke="#C9A867" stroke-width="1.8" stroke-linejoin="round" fill="none"/><path d="M24 15v14.9" stroke="#C9A867" stroke-width="1.8"/><circle cx="16" cy="35" r="1.7" fill="#C9A867"/><circle cx="21.3" cy="35" r="1.7" fill="#C9A867"/><circle cx="26.6" cy="35" r="1.7" fill="#C9A867"/><circle cx="32" cy="35" r="1.7" fill="#C9A867"/></svg>`
@@ -52,7 +54,7 @@ const ic = {
 /* เว็บไซต์รับฟังความคิดเห็นและข้อเสนอแนะของคณะอนุกรรมาธิการฯ */
 const OPINION = "https://opinion.thamdee.com";
 
-function opinionBand() {
+function opinionBand(base = "") {
   return `<section class="section on-paper">
   <div class="container">
     <div class="cta-band cta-band--gold reveal">
@@ -68,7 +70,7 @@ function opinionBand() {
 </section>`;
 }
 
-function head(title, desc, extra = "") {
+function head(title, desc, extra = "", base = "") {
   return `<!DOCTYPE html>
 <html lang="th" data-textsize="normal">
 <head>
@@ -85,20 +87,20 @@ function head(title, desc, extra = "") {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="${base}assets/css/style.css">
 ${extra}
 </head>
 <body>
 <a class="skip-link" href="#main">ข้ามไปยังเนื้อหาหลัก</a>`;
 }
 
-function topbar() {
+function topbar(base = "") {
   return `<div class="topbar">
   <div class="container topbar__row">
     <span class="topbar__org"><span class="dot"></span>คณะกรรมาธิการการศึกษา การอุดมศึกษา วิทยาศาสตร์ วิจัยและนวัตกรรม วุฒิสภา</span>
     <span class="topbar__meta">
       <a class="topbar__opinion" href="${OPINION}" target="_blank" rel="noopener">ร่วมแสดงความคิดเห็น</a>
-      <a href="contact.html">ติดต่อฝ่ายเลขานุการ</a>
+      <a href="${base}contact.html">ติดต่อฝ่ายเลขานุการ</a>
     </span>
   </div>
 </div>`;
@@ -114,36 +116,38 @@ function a11yToolbar(mobile = false) {
   </div>`;
 }
 
-function header(active) {
+function header(active, base = "", markId = "brand-bg") {
   const links = NAV.map(n =>
-    `<li><a href="${n.href}"${n.key === active ? ' aria-current="page"' : ""}>${n.label}</a></li>`
-  ).join("\n        ");
-  return `${topbar()}
+    `<li><a href="${base}${n.href}"${n.key === active ? ' aria-current="page"' : ""}>${n.label}</a></li>`
+  ).join("\n          ");
+  return `${topbar(base)}
 <header class="site-header">
   <div class="container nav">
-    <a class="brand" href="index.html" aria-label="กลับสู่หน้าแรก คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ">
-      ${BRAND_MARK}
+    <a class="brand" href="${base}index.html" aria-label="กลับสู่หน้าแรก คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ">
+      ${brandMark(markId)}
       <span class="brand__text">
         <b>คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ</b>
         <span>การศึกษาเอกชน · การศึกษาพิเศษ · ความเท่าเทียมทางการศึกษา · วุฒิสภา</span>
       </span>
     </a>
-    <nav aria-label="เมนูหลัก">
-      <ul class="nav__links" id="primary-nav">
-        ${links}
-        <li class="a11y-mobile-wrap">${a11yToolbar(true)}</li>
-      </ul>
-    </nav>
     <div class="nav__tools">
       ${a11yToolbar(false)}
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="เปิดเมนู">${ic.menu}</button>
     </div>
   </div>
+  <nav class="navbar" aria-label="เมนูหลัก">
+    <div class="container">
+      <ul class="nav__links" id="primary-nav">
+          ${links}
+        <li class="a11y-mobile-wrap">${a11yToolbar(true)}</li>
+      </ul>
+    </div>
+  </nav>
 </header>
 <div class="nav-scrim" aria-hidden="true"></div>`;
 }
 
-function footer() {
+function footer(base = "") {
   return `<footer class="footer">
   <div class="container">
     <div class="footer__top">
@@ -155,17 +159,17 @@ function footer() {
       <div>
         <h4>เมนู</h4>
         <ul>
-          <li><a href="about.html">เกี่ยวกับคณะฯ</a></li>
-          <li><a href="scope.html">กรอบการพิจารณาศึกษา</a></li>
-          <li><a href="plan.html">แผนการพิจารณาศึกษา</a></li>
-          <li><a href="results.html">ผลการพิจารณาศึกษา</a></li>
+          <li><a href="${base}about.html">เกี่ยวกับคณะฯ</a></li>
+          <li><a href="${base}scope.html">กรอบการพิจารณาศึกษา</a></li>
+          <li><a href="${base}plan.html">แผนการพิจารณาศึกษา</a></li>
+          <li><a href="${base}results.html">ผลการพิจารณาศึกษา</a></li>
         </ul>
       </div>
       <div>
         <h4>มีส่วนร่วมและติดต่อ</h4>
         <ul>
           <li><a href="${OPINION}" target="_blank" rel="noopener">ร่วมแสดงความคิดเห็น (opinion.thamdee.com)</a></li>
-          <li><a href="contact.html">แบบฟอร์มติดต่อฝ่ายเลขานุการ</a></li>
+          <li><a href="${base}contact.html">แบบฟอร์มติดต่อฝ่ายเลขานุการ</a></li>
           <li>สำนักกรรมาธิการ สำนักงานเลขาธิการวุฒิสภา</li>
           <li><a href="https://www.senate.go.th" target="_blank" rel="noopener">เว็บไซต์วุฒิสภา</a></li>
         </ul>
@@ -179,17 +183,17 @@ function footer() {
 </footer>`;
 }
 
-function tail() {
+function tail(base = "") {
   return `<button class="to-top" type="button" aria-label="กลับขึ้นด้านบน">${ic.arrowUp}</button>
-<script src="assets/js/main.js" defer></script>
+<script src="${base}assets/js/main.js" defer></script>
 </body>
 </html>`;
 }
 
 /* motif svg for hero background */
 const HERO_MOTIF = `<svg class="hero__grid-motif" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-  <defs><pattern id="dots" width="42" height="42" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#4c6bb0" fill-opacity="0.35"/></pattern></defs>
-  <rect width="1200" height="500" fill="url(#dots)"/>
+  <defs><pattern id="hero-dots" width="42" height="42" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.4" fill="#4c6bb0" fill-opacity="0.35"/></pattern></defs>
+  <rect width="1200" height="500" fill="url(#hero-dots)"/>
   <g fill="none" stroke="#5a79c0" stroke-opacity="0.18" stroke-width="1.5">
     <rect x="740" y="-60" width="360" height="360" rx="60"/>
     <rect x="800" y="0" width="360" height="360" rx="60"/>
@@ -225,11 +229,11 @@ const home = `
       <a class="btn btn--ghost-dark" href="plan.html">ดูแผนการพิจารณาศึกษา ${ic.arrowRight}</a>
     </div>
 
-    <div class="spine reveal" data-delay="3" role="list" aria-label="สี่ด้านภารกิจของคณะอนุกรรมาธิการ">
-      <div class="spine__node" role="listitem"><span class="spine__k">ด้าน ๑</span><span class="spine__t">การส่งเสริมการเรียนรู้</span><span class="spine__d">การเรียนรู้ตลอดชีวิตและนอกระบบ</span></div>
-      <div class="spine__node" role="listitem"><span class="spine__k">ด้าน ๒</span><span class="spine__t">การศึกษาเอกชน</span><span class="spine__d">กำกับดูแลและส่งเสริม</span></div>
-      <div class="spine__node" role="listitem"><span class="spine__k">ด้าน ๓</span><span class="spine__t">การศึกษาพิเศษ</span><span class="spine__d">คนพิการและผู้มีความต้องการจำเป็นพิเศษ</span></div>
-      <div class="spine__node" role="listitem"><span class="spine__k">ด้าน ๔</span><span class="spine__t">ความเท่าเทียมทางการศึกษา</span><span class="spine__d">ลดความเหลื่อมล้ำ</span></div>
+    <div class="spine reveal" data-delay="3" aria-label="สี่ด้านภารกิจของคณะอนุกรรมาธิการ">
+      <a class="spine__node" href="#focus-learning"><span class="spine__k">ด้าน ๑</span><span class="spine__t">การส่งเสริมการเรียนรู้</span><span class="spine__d">การเรียนรู้ตลอดชีวิตและนอกระบบ</span></a>
+      <a class="spine__node" href="#focus-private"><span class="spine__k">ด้าน ๒</span><span class="spine__t">การศึกษาเอกชน</span><span class="spine__d">กำกับดูแลและส่งเสริม</span></a>
+      <a class="spine__node" href="#focus-special"><span class="spine__k">ด้าน ๓</span><span class="spine__t">การศึกษาพิเศษ</span><span class="spine__d">คนพิการและผู้มีความต้องการจำเป็นพิเศษ</span></a>
+      <a class="spine__node" href="#focus-equity"><span class="spine__k">ด้าน ๔</span><span class="spine__t">ความเท่าเทียมทางการศึกษา</span><span class="spine__d">ลดความเหลื่อมล้ำ</span></a>
     </div>
   </div>
 </section>
@@ -251,14 +255,14 @@ const home = `
   </div>
 </section>
 
-<section class="section on-white">
+<section class="section on-white" id="focus-areas">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">สี่ด้านภารกิจ</p>
       <h2>ขอบเขตเนื้อหาที่คณะฯ พิจารณาศึกษา</h2>
     </div>
     <div class="pillars">
-      <a class="pillar pillar--link reveal" href="scope.html#learning">
+      <a class="pillar pillar--link reveal" id="focus-learning" href="scope.html#learning">
         <div class="pillar__icon">${ic.book}</div>
         <div class="pillar__no">ด้าน ๑</div>
         <h3>การส่งเสริมการเรียนรู้</h3>
@@ -266,7 +270,7 @@ const home = `
         <p class="pillar__law"><strong>ฐานกฎหมาย:</strong> พ.ร.บ.ส่งเสริมการเรียนรู้ พ.ศ. ๒๕๖๖</p>
         <span class="pillar__more">ดูขอบเขตด้านนี้ ${ic.arrowRight}</span>
       </a>
-      <a class="pillar pillar--link reveal" data-delay="1" href="scope.html#private">
+      <a class="pillar pillar--link reveal" data-delay="1" id="focus-private" href="scope.html#private">
         <div class="pillar__icon">${ic.school}</div>
         <div class="pillar__no">ด้าน ๒</div>
         <h3>การศึกษาเอกชน</h3>
@@ -274,7 +278,7 @@ const home = `
         <p class="pillar__law"><strong>ฐานกฎหมาย:</strong> พ.ร.บ.โรงเรียนเอกชน ๒๕๕๐/๒๕๕๔</p>
         <span class="pillar__more">ดูขอบเขตด้านนี้ ${ic.arrowRight}</span>
       </a>
-      <a class="pillar pillar--link reveal" data-delay="2" href="scope.html#special">
+      <a class="pillar pillar--link reveal" data-delay="2" id="focus-special" href="scope.html#special">
         <div class="pillar__icon">${ic.access}</div>
         <div class="pillar__no">ด้าน ๓</div>
         <h3>การศึกษาพิเศษ</h3>
@@ -282,7 +286,7 @@ const home = `
         <p class="pillar__law"><strong>ฐานกฎหมาย:</strong> พ.ร.บ.การจัดการศึกษาสำหรับคนพิการ ๒๕๕๑/๒๕๕๖</p>
         <span class="pillar__more">ดูขอบเขตด้านนี้ ${ic.arrowRight}</span>
       </a>
-      <a class="pillar pillar--link reveal" data-delay="3" href="scope.html#equity">
+      <a class="pillar pillar--link reveal" data-delay="3" id="focus-equity" href="scope.html#equity">
         <div class="pillar__icon">${ic.scales}</div>
         <div class="pillar__no">ด้าน ๔</div>
         <h3>ความเท่าเทียมทางการศึกษา</h3>
@@ -299,11 +303,12 @@ const home = `
   <div class="container">
     <div class="cta-band reveal">
       <p class="eyebrow" style="justify-content:center;color:var(--gold-soft)">เนื้อหาประกอบการพิจารณา</p>
-      <h2>กรอบและแผนการพิจารณาศึกษาของคณะอนุกรรมาธิการฯ</h2>
-      <p>ประมวลกรอบสี่ด้าน เชื่อมโยงกับรัฐธรรมนูญ ยุทธศาสตร์ชาติ แผนพัฒนาฯ และแผนการศึกษาแห่งชาติ พร้อมแผนการพิจารณาศึกษารายด้าน อ่านได้บนเว็บไซต์</p>
+      <h2>กรอบ แผน และหลักฐานจากพื้นที่</h2>
+      <p>ประมวลกรอบสี่ด้าน แผนการพิจารณาศึกษารายด้าน และสรุปงานดูงาน–รับฟังความคิดเห็นระหว่าง พ.ศ. ๒๕๖๘–๒๕๖๙ รายงานฉบับสมบูรณ์จะเผยแพร่เมื่อวุฒิสภาให้ความเห็นชอบ</p>
       <div class="hero__cta">
         <a class="btn btn--on-dark" href="scope.html">อ่านกรอบการพิจารณาศึกษา ${ic.arrowRight}</a>
         <a class="btn btn--ghost-dark" href="plan.html">ดูแผนการพิจารณาศึกษา ${ic.arrowRight}</a>
+        <a class="btn btn--ghost-dark" href="results.html">หลักฐานจากพื้นที่ ${ic.arrowRight}</a>
       </div>
     </div>
   </div>
@@ -411,24 +416,28 @@ ${pageHero("กรอบการพิจารณาศึกษา", "กร�
         <h3>การส่งเสริมการเรียนรู้</h3>
         <p>พ.ร.บ.ส่งเสริมการเรียนรู้ พ.ศ. ๒๕๖๖ กำหนดการเรียนรู้ ๓ รูปแบบ (มาตรา ๖) ระบบเทียบระดับ–เทียบโอน–สะสมหน่วยการเรียนรู้ (มาตรา ๑๔–๑๕) และคณะกรรมการส่งเสริมการเรียนรู้จังหวัด</p>
         <p class="pillar__law"><strong>ช่องว่าง:</strong> ความทั่วถึง การยอมรับคุณวุฒิ และสิ่งอำนวยความสะดวกสำหรับคนพิการ (มาตรา ๑๖(๔))</p>
+        <p class="pillar__evidence">หลักฐานจากพื้นที่: <a href="results/teachers.html">ครู สกร. และพื้นที่สูง</a> · <a href="results/seminar-migrant.html">คุณวุฒิเด็กข้ามชาติ</a></p>
       </article>
       <article class="pillar reveal" data-delay="1" id="private">
         <div class="pillar__icon">${ic.school}</div><div class="pillar__no">ด้าน ๒</div>
         <h3>การศึกษาเอกชน</h3>
         <p>พ.ร.บ.โรงเรียนเอกชน ๒๕๕๐/๒๕๕๔ กำหนดฐานะนิติบุคคล การอุดหนุนและสิทธิประโยชน์ (มาตรา ๔๘) กองทุนส่งเสริมโรงเรียนในระบบ (มาตรา ๔๙) การกำกับดูแลและระบบอุทธรณ์</p>
         <p class="pillar__law"><strong>ช่องว่าง:</strong> ความเป็นธรรมของการอุดหนุน และการจัดการศึกษาสำหรับนักเรียนพิการ/ด้อยโอกาส (มาตรา ๔๘(๒))</p>
+        <p class="pillar__evidence">หลักฐานจากพื้นที่: <a href="results/four-pillars.html">เสวนาสี่มิติ — สวัสดิการครูเอกชน</a></p>
       </article>
       <article class="pillar reveal" data-delay="2" id="special">
         <div class="pillar__icon">${ic.access}</div><div class="pillar__no">ด้าน ๓</div>
         <h3>การศึกษาพิเศษ</h3>
         <p>พ.ร.บ.การจัดการศึกษาสำหรับคนพิการ ๒๕๕๑/๒๕๕๖ รับรองสิทธิเรียนฟรีตั้งแต่แรกพบความพิการ (มาตรา ๕) แผน IEP และหลักห้ามปฏิเสธการรับเข้าเรียน (มาตรา ๘)</p>
         <p class="pillar__law"><strong>ช่องว่าง:</strong> คุณภาพการเรียนรวม ความเพียงพอของครูการศึกษาพิเศษ และการเข้าถึงเทคโนโลยีสิ่งอำนวยความสะดวก</p>
+        <p class="pillar__evidence">หลักฐานจากพื้นที่: <a href="results/four-pillars.html">เสวนาสี่มิติ</a> · <a href="results/nan.html">ศูนย์การศึกษาพิเศษจังหวัดน่าน</a></p>
       </article>
       <article class="pillar reveal" data-delay="3" id="equity">
         <div class="pillar__icon">${ic.scales}</div><div class="pillar__no">ด้าน ๔</div>
         <h3>ความเท่าเทียมทางการศึกษา</h3>
         <p>พ.ร.บ.กองทุนเพื่อความเสมอภาคทางการศึกษา ๒๕๖๑ นิยามความเหลื่อมล้ำ (มาตรา ๓) วัตถุประสงค์ ๗ ประการ (มาตรา ๕) ประกอบ พ.ร.บ.กยศ. (ฉบับที่ ๒) ๒๕๖๖</p>
         <p class="pillar__law"><strong>ช่องว่าง:</strong> การระบุกลุ่มเป้าหมาย เด็กปฐมวัย และความซ้ำซ้อนของกองทุนหลายฉบับ</p>
+        <p class="pillar__evidence">หลักฐานจากพื้นที่: <a href="results/migrant.html">เด็กข้ามชาติและศูนย์การเรียน</a> · <a href="results/east-border.html">ชายแดนตะวันออก</a></p>
       </article>
     </div>
   </div>
@@ -504,28 +513,7 @@ ${pageHero("กรอบการพิจารณาศึกษา", "กร�
 </section>
 </main>`;
 
-/* ---- RESULTS (coming soon) ---- */
-const results = `
-<main id="main">
-${pageHero("ผลการพิจารณาศึกษา", "ผลการพิจารณาศึกษา", "พื้นที่สำหรับเผยแพร่รายงานผลการพิจารณาศึกษา ข้อสังเกต และข้อเสนอแนะของคณะอนุกรรมาธิการฯ")}
-
-<section class="section on-paper">
-  <div class="container narrow">
-    <div class="empty reveal">
-      <div class="empty__mark">${ic.gavel}</div>
-      <h2>อยู่ระหว่างการพิจารณาศึกษา</h2>
-      <p>ขณะนี้คณะอนุกรรมาธิการฯ อยู่ระหว่างการพิจารณาศึกษาตามกรอบขอบเขตที่กำหนด รายงานผลการพิจารณาศึกษาพร้อมข้อสังเกตและข้อเสนอแนะจะเผยแพร่ในหน้านี้เมื่อคณะกรรมาธิการและวุฒิสภาให้ความเห็นชอบแล้ว</p>
-      <div class="empty__timeline">
-        <div class="empty__step" data-active="true"><span class="k">๑</span><b>กำหนดกรอบการศึกษา</b><span>จัดทำกรอบขอบเขตตามคำสั่งแต่งตั้ง</span></div>
-        <div class="empty__step" data-active="true"><span class="k">๒</span><b>พิจารณาศึกษา</b><span>รับฟังความคิดเห็นและรวบรวมข้อมูล</span></div>
-        <div class="empty__step"><span class="k">๓</span><b>จัดทำรายงาน</b><span>ข้อสังเกตและข้อเสนอแนะ</span></div>
-        <div class="empty__step"><span class="k">๔</span><b>เผยแพร่</b><span>เมื่อวุฒิสภาให้ความเห็นชอบ</span></div>
-      </div>
-      <p style="margin-top:var(--sp-4)"><a class="btn" href="${OPINION}" target="_blank" rel="noopener">ร่วมแสดงความคิดเห็นระหว่างการพิจารณาศึกษา ${ic.external}</a> <a class="btn btn--ghost" href="scope.html">ดูกรอบการพิจารณาศึกษา ${ic.arrowRight}</a></p>
-    </div>
-  </div>
-</section>
-</main>`;
+const { resultsHub: results, nestedPages } = require("./build_results")({ ic, OPINION, PAGE_MOTIF, opinionBand });
 
 /* ---- DOCUMENTS ---- */
 const documents = `
@@ -833,6 +821,10 @@ ${pageHero("แผนการพิจารณาศึกษา", "ร่า�
         </div>
       </div>
     </div>
+    <div class="progress-box reveal">
+      <b>ความคืบหน้าตามแผน</b>
+      <p>ระยะกำหนดกรอบและลงพื้นที่รับฟังดำเนินการแล้ว อยู่ระหว่างสังเคราะห์ข้อสังเกตและข้อเสนอแนะ รายงานฉบับสมบูรณ์จะเผยแพร่เมื่อวุฒิสภาให้ความเห็นชอบ — <a href="results.html">อ่านหลักฐานจากพื้นที่</a></p>
+    </div>
   </div>
 </section>
 
@@ -864,12 +856,17 @@ const pages = [
   { file: "about.html", active: "about", title: "เกี่ยวกับคณะฯ · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "ที่มา บทบาท และหน้าที่และอำนาจของคณะอนุกรรมาธิการฯ", body: about },
   { file: "scope.html", active: "scope", title: "กรอบการพิจารณาศึกษา · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "กรอบขอบเขตการพิจารณาศึกษา ฉบับปรับตามคำสั่งแต่งตั้ง สี่ชั้น: ยุทธศาสตร์ เนื้อหาสี่ด้าน ตารางจับคู่ และกระบวนการ", body: scope },
   { file: "plan.html", active: "plan", title: "แผนการพิจารณาศึกษา · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "ร่างแผนการพิจารณาศึกษารายด้านทั้งสี่ด้าน พร้อมประเด็น หน่วยงานที่ควรเชิญมาชี้แจง และชุดคำถามสำหรับการชี้แจง", body: plan },
-  { file: "results.html", active: "results", title: "ผลการพิจารณาศึกษา · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "รายงานผลการพิจารณาศึกษา ข้อสังเกต และข้อเสนอแนะของคณะอนุกรรมาธิการฯ", body: results },
+  { file: "results.html", active: "results", title: "ผลการพิจารณาศึกษา · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "หลักฐานจากพื้นที่ประกอบการพิจารณาศึกษา สรุปงานดูงาน รับฟังความคิดเห็น และหารือหน่วยงาน ระหว่าง พ.ศ. ๒๕๖๘–๒๕๖๙", body: results },
   { file: "contact.html", active: "contact", title: "ติดต่อ · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "ติดต่อฝ่ายเลขานุการคณะอนุกรรมาธิการฯ", body: contact },
 ];
 
-pages.forEach(p => {
-  const html = head(p.title, p.desc) + "\n" + header(p.active) + "\n" + p.body + "\n" + footer() + "\n" + tail();
-  fs.writeFileSync(path.join(OUT, p.file), html, "utf8");
+function writePage(p, base = "", markId = "brand-bg") {
+  const html = head(p.title, p.desc, "", base) + "\n" + header(p.active, base, markId) + "\n" + p.body + "\n" + footer(base) + "\n" + tail(base);
+  const out = path.join(OUT, p.file);
+  fs.mkdirSync(path.dirname(out), { recursive: true });
+  fs.writeFileSync(out, html, "utf8");
   console.log("wrote", p.file, html.length, "bytes");
-});
+}
+
+pages.forEach((p) => writePage(p));
+nestedPages.forEach((p) => writePage({ ...p, active: "results" }, "../", "brand-bg-nested"));

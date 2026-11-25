@@ -389,7 +389,7 @@ table.matrix tbody tr:last-child th, table.matrix tbody tr:last-child td { borde
 .page-hero__motif { position: absolute; right: -40px; top: -40px; width: 320px; opacity: .12; color: var(--gold-soft); }
 .page-hero h1 { color: #fff; font-size: var(--step-3); max-width: 24ch; margin-top: .5rem; }
 .page-hero p { color: #c8d3e7; margin-top: .8rem; max-width: 60ch; font-size: var(--step-1); }
-.crumbs { display: flex; gap: .5rem; align-items: center; font-size: .86rem; color: #aab7d0; list-style: none; padding: 0; }
+.crumbs { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; font-size: .86rem; color: #aab7d0; list-style: none; padding: 0; }
 .crumbs a { color: #cdd8ec; text-decoration: none; }
 .crumbs a:hover { color: #fff; text-decoration: underline; }
 .crumbs li::after { content: "/"; margin-left: .5rem; color: #6d78a0; }
@@ -524,6 +524,76 @@ html[data-contrast="high"] .cta-band--gold { background: #06122b; }
   table.matrix td { text-align: left; display: flex; justify-content: space-between; gap: 1rem; border: none; padding: .35rem 1rem; }
   table.matrix td::before { content: attr(data-label); color: var(--muted); font-size: .85rem; }
   table.matrix tbody tr:nth-child(even) td, table.matrix tbody tr:nth-child(even) th { background: transparent; }
+}
+
+/* ---------- Evidence / field-work pages ---------- */
+.status-strip {
+  display: grid; gap: var(--sp-3);
+  grid-template-columns: 1.2fr 1fr;
+  align-items: start;
+}
+.status-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  padding: 1.5rem 1.6rem; box-shadow: var(--shadow-1);
+}
+.status-card h2 { font-size: var(--step-1); margin-bottom: .45rem; }
+.status-card p { font-size: .96rem; }
+
+.work-timeline { list-style: none; padding: 0; margin: 0; }
+.work-timeline li {
+  display: grid; grid-template-columns: 8.2rem 1fr; gap: 1rem;
+  position: relative; padding: 0 0 1.35rem 1.15rem; margin: 0;
+  border-left: 2px solid var(--line);
+}
+.work-timeline li:last-child { padding-bottom: 0; }
+.work-timeline li::before {
+  content: ""; position: absolute; left: -5px; top: .45rem;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--gold);
+}
+.work-timeline time { font-size: .8rem; font-weight: 600; color: var(--muted); line-height: 1.4; }
+.work-timeline a { font-weight: 600; text-decoration: none; }
+.work-timeline a:hover { text-decoration: underline; }
+.work-timeline span { display: block; font-size: .88rem; color: var(--slate); margin-top: .15rem; }
+
+.findings { display: grid; gap: .85rem; }
+.finding {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 1.15rem 1.3rem; box-shadow: var(--shadow-1);
+}
+.finding b { display: block; font-family: var(--font-display); color: var(--ink); margin-bottom: .3rem; }
+.finding p { font-size: .95rem; margin: 0; }
+
+.observe {
+  background: var(--paper-2); border: 1px solid var(--line); border-left: 4px solid var(--gold);
+  border-radius: var(--r-sm); padding: 1.2rem 1.4rem;
+}
+.observe h3 { font-size: var(--step-1); margin-bottom: .6rem; }
+.observe ol, .observe ul { margin: 0; }
+.progress-box {
+  margin-top: var(--sp-4);
+  background: var(--paper-2); border: 1px solid var(--line); border-left: 4px solid var(--gold);
+  border-radius: var(--r-sm); padding: 1.1rem 1.3rem;
+}
+.progress-box b { display: block; font-family: var(--font-display); margin-bottom: .35rem; }
+.progress-box p { margin: 0; font-size: .95rem; }
+.pillar__evidence { margin-top: .7rem; font-size: .9rem; }
+.pillar__evidence a { font-weight: 600; text-decoration: none; }
+.pillar__evidence a:hover { text-decoration: underline; }
+#focus-learning, #focus-private, #focus-special, #focus-equity,
+#learning, #private, #special, #equity {
+  scroll-margin-top: 6.5rem;
+}
+.status-card .empty__timeline { justify-content: flex-start; }
+
+.meta-row {
+  display: flex; flex-wrap: wrap; gap: .5rem .9rem; margin-top: var(--sp-3);
+  font-size: .88rem; color: #c8d3e7;
+}
+.meta-row span { display: inline-flex; align-items: center; gap: .35rem; }
+
+@media (max-width: 820px) {
+  .status-strip, .work-timeline li { grid-template-columns: 1fr; }
+  .work-timeline li { padding-left: 1.15rem; }
 }
 
 /* Print */
