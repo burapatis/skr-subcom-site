@@ -25,8 +25,12 @@ module.exports = function buildResults({ ic, OPINION, PAGE_MOTIF, opinionBand })
     return `<div class="findings">${items.map((f) => `<div class="finding reveal"><b>${f.t}</b><p>${f.p}</p></div>`).join("")}</div>`;
   }
 
-  function pdfCard(href, title, sub) {
-    return `<a class="doc reveal" href="${href}"><div class="doc__badge doc__badge--pdf">PDF</div><div class="doc__body"><b>${title}</b><span>${sub}</span><span class="go">ดาวน์โหลดฉบับเต็ม ${ic.arrowRight}</span></div></a>`;
+  function docsRequest(contactHref) {
+    return `<div class="observe reveal" style="margin-top:var(--sp-4)">
+    <h3>เอกสารต้นฉบับ</h3>
+    <p>ยังไม่เปิดให้ดาวน์โหลดบนเว็บไซต์ หากต้องการสำเนาสรุปผลดูงาน สัมมนา หรือเอกสารประกอบการพิจารณา กรุณาติดต่อฝ่ายเลขานุการคณะอนุกรรมาธิการฯ</p>
+    <p style="margin-top:var(--sp-3);margin-bottom:0"><a class="btn" href="${contactHref}">ติดต่อฝ่ายเลขานุการ ${ic.arrowRight}</a></p>
+  </div>`;
   }
 
   function related(links) {
@@ -109,19 +113,11 @@ module.exports = function buildResults({ ic, OPINION, PAGE_MOTIF, opinionBand })
 <section class="section on-paper">
   <div class="container">
     <div class="section-head reveal">
-      <p class="eyebrow">เอกสารฉบับเต็ม</p>
-      <h2>ดาวน์โหลดสรุปฝ่ายเลขานุการ</h2>
+      <p class="eyebrow">เอกสารต้นฉบับ</p>
+      <h2>ยังไม่เปิดให้ดาวน์โหลดบนเว็บไซต์</h2>
+      <p>หากต้องการสำเนาสรุปผลดูงาน สัมมนา หรือเอกสารประกอบการพิจารณา กรุณาติดต่อฝ่ายเลขานุการคณะอนุกรรมาธิการฯ</p>
     </div>
-    <div class="docs">
-      ${pdfCard("documents/samutsakhon-2568.pdf", "ดูงานสมุทรสาคร", "๒๘ กุมภาพันธ์ ๒๕๖๘")}
-      ${pdfCard("documents/tak-2568.pdf", "ดูงานตาก", "๒๐–๒๒ มีนาคม ๒๕๖๘")}
-      ${pdfCard("documents/seminar-migrant-2568.pdf", "สัมมนาเด็กข้ามชาติ", "๗ สิงหาคม ๒๕๖๘")}
-      ${pdfCard("documents/skor-meeting-2568.pdf", "ประชุมหารือ สกร.", "๒๒ ตุลาคม ๒๕๖๘")}
-      ${pdfCard("documents/nan-2569.pdf", "ดูงานน่าน", "๑๑–๑๓ กุมภาพันธ์ ๒๕๖๙")}
-      ${pdfCard("documents/east-border-2569.pdf", "ตราด จันทบุรี สระแก้ว", "๑๗–๑๙ มิถุนายน ๒๕๖๙")}
-      ${pdfCard("documents/seminar-four-pillars-2569.pdf", "เสวนาสี่มิติ", "๙ กันยายน ๒๕๖๙")}
-    </div>
-    <p style="margin-top:var(--sp-4)"><a class="btn" href="${OPINION}" target="_blank" rel="noopener">ร่วมแสดงความคิดเห็นต่อประเด็นจากพื้นที่ ${ic.external}</a> <a class="btn btn--ghost" href="plan.html">ดูแผนการพิจารณาศึกษา ${ic.arrowRight}</a></p>
+    <p class="reveal"><a class="btn" href="contact.html">ติดต่อฝ่ายเลขานุการ ${ic.arrowRight}</a> <a class="btn btn--ghost" href="${OPINION}" target="_blank" rel="noopener">ร่วมแสดงความคิดเห็นต่อประเด็นจากพื้นที่ ${ic.external}</a> <a class="btn btn--ghost" href="plan.html">ดูแผนการพิจารณาศึกษา ${ic.arrowRight}</a></p>
   </div>
 </section>
 </main>`;
@@ -311,7 +307,7 @@ ${hero("สี่มิติทั้งระบบ", "สี่มิติ�
 </section>
 </main>`;
 
-  function activity({ crumb, title, lead, when, where, kind, metrics, points, observe, pdf, pdfLabel, more }) {
+  function activity({ crumb, title, lead, when, where, kind, metrics, points, observe, more }) {
     return `
 <main id="main">
 ${hero(crumb, title, lead)}
@@ -329,7 +325,7 @@ ${hero(crumb, title, lead)}
       <h3>ข้อสังเกตของคณะ</h3>
       ${observe}
     </div>
-    <div class="docs" style="margin-top:var(--sp-4)">${pdfCard(pdf, pdfLabel, "เอกสารฝ่ายเลขานุการ — สำหรับอ่านฉบับเต็ม")}</div>
+    ${docsRequest("../contact.html")}
     ${related(more)}
   </div>
 </section>
@@ -362,8 +358,6 @@ ${hero(crumb, title, lead)}
           { t: "สิทธิ G-Code มีแล้วสำหรับเด็กในสถานศึกษาที่ถูกต้อง", p: "เด็กในศูนย์ที่ไม่ได้ขึ้นทะเบียนจะไม่ได้รับอุดหนุนห้ารายการและใช้วุฒิสมัครงานหรือเรียนต่อไม่ได้" },
         ],
         observe: `<ol class="plan-ol"><li>ปลูกฝังความเป็นพลเมืองและการเคารพสถาบันให้เด็กที่อาศัยในประเทศไทย</li><li>เร่งเอกสารประจำตัวเพื่อเข้าสู่ระบบ</li><li>สำรวจเด็กทั้งที่เรียนและยังไม่เรียนในพื้นที่</li><li>ผลักดันศูนย์ให้ถูกกฎหมาย และกระจายความแออัดของโรงเรียนรัฐ</li></ol>`,
-        pdf: "../documents/samutsakhon-2568.pdf",
-        pdfLabel: "สรุปผลดูงานสมุทรสาคร",
         more: [
           { href: "migrant.html", label: "บทสังเคราะห์เด็กข้ามชาติ" },
           { href: "tak.html", label: "ดูงานตาก" },
@@ -392,8 +386,6 @@ ${hero(crumb, title, lead)}
           { t: "ศูนย์พักพิงเป็นอีกชุดปัญหา", p: "การเรียนในบ้านแม่หละใช้หลักสูตรกะเหรี่ยง/คะเรนนี วุฒิยังใช้ต่อนอกพื้นที่ไม่ได้ งบช่วยเหลือจากต่างประเทศลดลง" },
         ],
         observe: `<ol class="plan-ol"><li>คณะฯ เน้นว่ามาฟังข้อเท็จจริง ไม่ได้สนับสนุนการดำเนินศูนย์ที่ยังไม่ถูกกฎหมาย</li><li>ควรเร่งทำให้ศูนย์ถูกกฎหมาย ตรวจสอบข้อมูลผู้ปกครอง และผลักดันเด็กเข้าสู่ระบบรัฐในพื้นที่ที่พร้อม</li><li>เขตพื้นที่เสนอให้ชายแดนเป็นพื้นที่พิเศษที่จัดการศึกษาสองภาษาได้</li></ol>`,
-        pdf: "../documents/tak-2568.pdf",
-        pdfLabel: "สรุปผลดูงานตาก",
         more: [
           { href: "migrant.html", label: "บทสังเคราะห์เด็กข้ามชาติ" },
           { href: "samutsakhon.html", label: "ดูงานสมุทรสาคร" },
@@ -422,8 +414,6 @@ ${hero(crumb, title, lead)}
           { t: "รัฐต้องเอกภาพทั้งนโยบายและข้อมูล", p: "ผู้แทนหน่วยงานขอระบบทะเบียนเด็กข้ามชาติที่เชื่อมกัน และแนวปฏิบัติที่สถานศึกษาใช้ได้อย่างมั่นใจว่าไม่ผิดกฎหมาย" },
         ],
         observe: `<p>เวทีนี้เป็นจุดรวมหลักฐานจากสมุทรสาครและตากเข้าสู่ข้อเสนอเชิงนโยบาย อุปสรรคที่ผู้ตอบแบบสอบถามเห็นว่าใหญ่ที่สุดคือความขัดแย้งกับกฎหมายความมั่นคง รองลงมาคือเจตจำนงทางการเมืองและทัศนคติในชุมชน — เว็บจึงต้องคงทั้งสิทธิเด็กและการกำกับตามกฎหมายไทย</p>`,
-        pdf: "../documents/seminar-migrant-2568.pdf",
-        pdfLabel: "สรุปสัมมนาเด็กข้ามชาติ",
         more: [
           { href: "migrant.html", label: "บทสังเคราะห์เด็กข้ามชาติ" },
           { href: "../scope.html#learning", label: "กรอบด้านการส่งเสริมการเรียนรู้" },
@@ -452,8 +442,6 @@ ${hero(crumb, title, lead)}
           { t: "เด็กเร่ร่อนและโยกย้ายถิ่นต้องเรียนต่อเนื่อง", p: "เสนอระบบออนไลน์ที่ย้ายตามผู้ปกครองได้ โดยไม่ต้องเข้าโรงเรียนประจำใหม่ทุกครั้ง" },
         ],
         observe: `<p>ที่ประชุมเชื่อม พ.ร.บ.ส่งเสริมการเรียนรู้กับการปฏิบัติจริงของครูบนเขา ข้อเสนอเร่งด่วนคือผลักดันงบรายหัวให้ครบถ้วนเทียบ สพฐ. รวมชุดนักเรียนและงบเด็กปฐมวัยใน ศศช. เข้าสู่การพิจารณาของคณะรัฐมนตรี</p>`,
-        pdf: "../documents/skor-meeting-2568.pdf",
-        pdfLabel: "สรุปประชุมหารือ สกร.",
         more: [
           { href: "teachers.html", label: "บทสังเคราะห์ครูและพื้นที่สูง" },
           { href: "nan.html", label: "ดูงานน่าน" },
@@ -482,8 +470,6 @@ ${hero(crumb, title, lead)}
           { t: "การศึกษาพิเศษในจังหวัดเชื่อมกับภารกิจ สกร.", p: "การขาดครูเฉพาะทางและภาระดูแลผู้เรียนพิเศษสอดคล้องข้อค้นพบจากเสวนาสี่มิติ" },
         ],
         observe: `<ol class="plan-ol"><li>กำหนดพื้นที่พิเศษให้การเบิกจ่ายตรงกับสภาพพื้นที่สูง</li><li>พิจารณาสวัสดิการครูพันธุ์พิเศษเพื่อลดการโยกย้าย</li><li>ฝ่ายปกครองจังหวัดควรหนุนทรัพยานอกเหนืองบการศึกษา</li></ol>`,
-        pdf: "../documents/nan-2569.pdf",
-        pdfLabel: "สรุปผลดูงานน่าน",
         more: [
           { href: "teachers.html", label: "บทสังเคราะห์ครูและพื้นที่สูง" },
           { href: "four-pillars.html", label: "สี่มิติทั้งระบบ" },
@@ -512,8 +498,6 @@ ${hero(crumb, title, lead)}
           { t: "โรงเรียนประจำเด็กด้อยโอกาสขาดคนงาน", p: "ราชประชานุเคราะห์ ๔๘ ครูต้องควบหอนอนตลอด ๒๔ ชั่วโมง เพราะค่าจ้างนักการภารโรงสู้ภาคเกษตรไม่ได้" },
         ],
         observe: `<ol class="plan-ol"><li>เชื่อม Big Data ระหว่างศึกษาธิการ มหาดไทย และความมั่นคง</li><li>ใช้อัตลักษณ์บุคคลลดการสวมสิทธิ์</li><li>สร้างเครือข่ายโรงเรียน–นายจ้าง–ตรวจคนเข้าเมือง เมื่อแรงงานย้าย</li><li>ภาระงบประมาณเฉลี่ยสูงถูกตั้งคำถามในพื้นที่ — ต้องอธิบายหลักสิทธิควบคู่ความโปร่งใสของข้อมูล</li></ol>`,
-        pdf: "../documents/east-border-2569.pdf",
-        pdfLabel: "สรุปผลดูงานตราด จันทบุรี สระแก้ว",
         more: [
           { href: "migrant.html", label: "บทสังเคราะห์เด็กข้ามชาติ" },
           { href: "four-pillars.html", label: "สี่มิติทั้งระบบ" },
@@ -542,8 +526,6 @@ ${hero(crumb, title, lead)}
           { t: "เชื่อมข้อมูลรายบุคคลข้ามกระทรวง", p: "เด็กตกหล่น คนพิการ และผู้เรียนข้ามชาติล้วนเจอฐานข้อมูลแยกส่วน — เป็นข้อเสนอร่วมของทั้งสี่ด้าน" },
         ],
         observe: `<p>ใช้หน้านี้คู่กับบทสังเคราะห์สี่มิติ อย่าคัดลอกคำกล่าวเปิดทั้งหมดลงเว็บ สาระที่ใช้ได้คือลำดับปัญหา ข้อเสนอ และช่องทางกลับไปกรอบกับแผน</p>`,
-        pdf: "../documents/seminar-four-pillars-2569.pdf",
-        pdfLabel: "สรุปเสวนาพัฒนาการศึกษาไทยสี่มิติ",
         more: [
           { href: "four-pillars.html", label: "บทสังเคราะห์สี่มิติ" },
           { href: "../scope.html", label: "กรอบการพิจารณาศึกษา" },
