@@ -561,7 +561,25 @@ html[data-contrast="high"] .cta-band--gold { background: #06122b; }
   padding: 1.15rem 1.3rem; box-shadow: var(--shadow-1);
 }
 .finding b { display: block; font-family: var(--font-display); color: var(--ink); margin-bottom: .3rem; }
-.finding p { font-size: .95rem; margin: 0; }
+.finding p { font-size: .95rem; margin: 0; line-height: 1.7; }
+.story { margin-top: var(--sp-4); max-width: 72ch; }
+.story p { margin-bottom: .9rem; }
+.story p:last-child { margin-bottom: 0; }
+.roster { display: grid; gap: .7rem; }
+.roster__item {
+  display: grid; grid-template-columns: 12.5rem 1fr; gap: .85rem 1.2rem; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r);
+  padding: 1.05rem 1.25rem; box-shadow: var(--shadow-1);
+}
+.roster__role {
+  font-size: .78rem; font-weight: 700; letter-spacing: .02em; color: var(--royal);
+  font-family: var(--font-display); line-height: 1.4;
+}
+.roster__item b { display: block; font-family: var(--font-display); color: var(--ink); }
+.roster__item span { display: block; font-size: .9rem; color: var(--slate); margin-top: .2rem; }
+@media (max-width: 640px) {
+  .roster__item { grid-template-columns: 1fr; }
+}
 
 .observe {
   background: var(--paper-2); border: 1px solid var(--line); border-left: 4px solid var(--gold);

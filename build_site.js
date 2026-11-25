@@ -320,7 +320,7 @@ ${opinionBand()}
 /* ---- ABOUT ---- */
 const about = `
 <main id="main">
-${pageHero("เกี่ยวกับคณะฯ", "เกี่ยวกับคณะอนุกรรมาธิการ", "ที่มา บทบาท หน้าที่และอำนาจ ตลอดจนขอบเขตการทำงานของคณะอนุกรรมาธิการฯ ตามคำสั่งแต่งตั้ง")}
+${pageHero("เกี่ยวกับคณะฯ", "เกี่ยวกับคณะอนุกรรมาธิการ", "ที่มา รายชื่อ บทบาท หน้าที่และอำนาจ ตลอดจนขอบเขตการทำงานของคณะอนุกรรมาธิการฯ")}
 
 <section class="section on-paper">
   <div class="container narrow">
@@ -333,6 +333,30 @@ ${pageHero("เกี่ยวกับคณะฯ", "เกี่ยวกั�
 </section>
 
 <section class="section on-white">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">องค์ประกอบ</p>
+      <h2>รายชื่อคณะอนุกรรมาธิการฯ</h2>
+      <p>รวบรวมจากเอกสารสรุปการดูงาน หารือ และเสวนาของฝ่ายเลขานุการระหว่าง พ.ศ. ๒๕๖๘–๒๕๖๙ หากมีการเปลี่ยนแปลงตามคำสั่งแต่งตั้ง โปรดติดต่อฝ่ายเลขานุการฯ</p>
+    </div>
+    <div class="roster">
+      <div class="roster__item reveal"><span class="roster__role">ประธาน</span><div><b>นายวิวัฒน์ รุ้งแก้ว</b><span>รองประธานคณะกรรมาธิการ คนที่สอง และโฆษกคณะกรรมาธิการ</span></div></div>
+      <div class="roster__item reveal"><span class="roster__role">รองประธาน คนที่หนึ่ง</span><div><b>นายสมทบ ถีระพันธ์</b><span>กรรมาธิการและที่ปรึกษา</span></div></div>
+      <div class="roster__item reveal" data-delay="1"><span class="roster__role">รองประธาน คนที่สอง</span><div><b>นายปริญญา วงษ์เชิดขวัญ</b><span>รองประธานคณะกรรมาธิการ คนที่ห้า และโฆษกคณะกรรมาธิการ</span></div></div>
+      <div class="roster__item reveal"><span class="roster__role">อนุกรรมาธิการและเลขานุการ</span><div><b>นางมยุรี โพธิแสน</b><span>รองเลขานุการคณะกรรมาธิการ</span></div></div>
+      <div class="roster__item reveal"><span class="roster__role">อนุกรรมาธิการ</span><div><b>นายสมดุลย์ บุญไชย</b><span>กรรมาธิการและที่ปรึกษา</span></div></div>
+      <div class="roster__item reveal" data-delay="1"><span class="roster__role">อนุกรรมาธิการ</span><div><b>นางเบ็ญจมาศ อภัยทอง</b><span>กรรมาธิการและที่ปรึกษา</span></div></div>
+      <div class="roster__item reveal"><span class="roster__role">อนุกรรมาธิการ</span><div><b>นายปรเมศวร์ ศิริรัตน์</b></div></div>
+      <div class="roster__item reveal" data-delay="1"><span class="roster__role">อนุกรรมาธิการ</span><div><b>นายบูรพาทิศ พลอยสุวรรณ์</b></div></div>
+      <div class="roster__item reveal"><span class="roster__role">อนุกรรมาธิการ</span><div><b>ศาสตราจารย์ศักดา ดาดวง</b></div></div>
+      <div class="roster__item reveal" data-delay="1"><span class="roster__role">อนุกรรมาธิการ</span><div><b>นางปัณฑารีย์ บุญแรง</b></div></div>
+      <div class="roster__item reveal"><span class="roster__role">อนุกรรมาธิการ</span><div><b>นายวีระพงษ์ กังวานนวกุล</b></div></div>
+      <div class="roster__item reveal" data-delay="1"><span class="roster__role">อนุกรรมาธิการ</span><div><b>นายสุรเสกข์ ยุทธิวัฒน์</b></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section on-paper">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">หน้าที่และอำนาจ</p>
@@ -350,7 +374,7 @@ ${pageHero("เกี่ยวกับคณะฯ", "เกี่ยวกั�
   </div>
 </section>
 
-<section class="section on-paper">
+<section class="section on-white">
   <div class="container narrow">
     <div class="section-head reveal">
       <p class="eyebrow">หลักการทำงาน</p>
@@ -853,7 +877,7 @@ ${opinionBand()}
 /* ---------------- assemble ---------------- */
 const pages = [
   { file: "index.html", active: "home", title: "คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ การศึกษาเอกชน การศึกษาพิเศษ และความเท่าเทียมทางการศึกษา · วุฒิสภา", desc: "เว็บไซต์คณะอนุกรรมาธิการฯ วุฒิสภา นำเสนอกรอบขอบเขตการพิจารณาศึกษาด้านการส่งเสริมการเรียนรู้ การศึกษาเอกชน การศึกษาพิเศษ และความเท่าเทียมทางการศึกษา", body: home },
-  { file: "about.html", active: "about", title: "เกี่ยวกับคณะฯ · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "ที่มา บทบาท และหน้าที่และอำนาจของคณะอนุกรรมาธิการฯ", body: about },
+  { file: "about.html", active: "about", title: "เกี่ยวกับคณะฯ · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "ที่มา รายชื่อ บทบาท และหน้าที่และอำนาจของคณะอนุกรรมาธิการฯ", body: about },
   { file: "scope.html", active: "scope", title: "กรอบการพิจารณาศึกษา · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "กรอบขอบเขตการพิจารณาศึกษา ฉบับปรับตามคำสั่งแต่งตั้ง สี่ชั้น: ยุทธศาสตร์ เนื้อหาสี่ด้าน ตารางจับคู่ และกระบวนการ", body: scope },
   { file: "plan.html", active: "plan", title: "แผนการพิจารณาศึกษา · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "ร่างแผนการพิจารณาศึกษารายด้านทั้งสี่ด้าน พร้อมประเด็น หน่วยงานที่ควรเชิญมาชี้แจง และชุดคำถามสำหรับการชี้แจง", body: plan },
   { file: "results.html", active: "results", title: "ผลการพิจารณาศึกษา · คณะอนุกรรมาธิการการส่งเสริมการเรียนรู้ฯ วุฒิสภา", desc: "หลักฐานจากพื้นที่ประกอบการพิจารณาศึกษา สรุปงานดูงาน รับฟังความคิดเห็น และหารือหน่วยงาน ระหว่าง พ.ศ. ๒๕๖๘–๒๕๖๙", body: results },
